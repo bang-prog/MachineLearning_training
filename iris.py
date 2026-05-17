@@ -32,3 +32,35 @@ from sklearn.metrics import accuracy_score
 y_pred = model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"正解率：{accuracy * 100:.1f}%")
+
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
+
+#グラフサイズを設定
+plt.figure(figsize=(15, 10))
+
+#決定木の図を描画
+plot_tree(
+    model,
+    feature_names=iris.feature_names,
+    class_names=iris.target_names,
+    filled=True,
+    rounded=True,
+)
+
+plt.show()
+
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
+
+#混同行列の計算
+cm = confusion_matrix(y_test, y_pred)
+
+#混同行列の表示
+disp = ConfusionMatrixDisplay(
+    confusion_matrix=cm, display_labels=iris.target_names
+)
+
+disp.plot(cmap=plt.cm.Blues)
+plt.title("Confusion Matrix")
+plt.show()
